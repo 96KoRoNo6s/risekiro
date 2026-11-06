@@ -1,5 +1,5 @@
-node_modules/
-.vercel/
-*.zip
 __pycache__/
-*.log
+*.py[cod]
+*$py.class
+.DS_Store
+*.tmp
