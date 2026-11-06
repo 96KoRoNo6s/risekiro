@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RiseKiro — Developer Hub & LeadMatrix Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Developer Bar -->
+    <div class="top-nav-bar">
+      <div class="dev-badge">
+        <span class="status-dot"></span>
+        <span>Developer Hub: <strong>RiseKiro</strong></span>
+        <span class="subdomain-tag">risekiro.is-a.dev</span>
+      </div>
+      <div class="dev-links">
+        <a href="https://github.com/96KoRoNo6s" target="_blank" rel="noopener noreferrer" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub Profile
+        </a>
+      </div>
+    </div>
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon live-pulse">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <div>
+          <h1>LeadMatrix <span>Discovery Engine</span></h1>
+          <p class="subtitle">Онлайн-Парсер Поиска Новых Аккаунтов в Реальном Времени (По Нишам, Тегам и ГЕО)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnCopyAll" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+          Скопировать Все Ссылки
+        </button>
+        <button id="btnExportCsv" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Экспорт CSV
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats Banner -->
+    <section class="stats-banner">
+      <div class="stat-card">
+        <div class="stat-icon cyan">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="statDiscovered">0</span>
+          <span class="stat-label">Найдено Новых Профилей</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon emerald">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">Живой Поиск</span>
+          <span class="stat-label">Парсинг в Реальном Времени</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon gold">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="statTotal">14</span>
+          <span class="stat-label">Всего в Текущей Базе</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="statProgress">0 / 14</span>
+          <span class="stat-label">Обработано Контактов</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="tab-live-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        🛰️ Живой Поисковик Новых Аккаунтов
+      </button>
+
+      <button class="nav-tab" data-tab="tab-directory">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        База Найденого
+      </button>
+
+      <button class="nav-tab" data-tab="tab-dedup">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Проверка Дубликатов
+      </button>
+
+      <button class="nav-tab" data-tab="tab-outreach">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        DM ➔ WhatsApp Скрипты
+      </button>
+
+      <button class="nav-tab" data-tab="tab-plain-links">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Список Ссылок
+      </button>
+    </nav>
+
+    <!-- Tab 1: LIVE SEARCH DISCOVERY ENGINE (NEW) -->
+    <main id="tab-live-search" class="tab-content active">
+      <div class="glass-panel">
+        <div class="panel-header">
+          <h2>🛰️ Живой Парсер Поиска Новых Аккаунтов в Сети</h2>
+          <p>Введите ключевые слова (например: <code>dubai watch usdt</code>, <code>miami boat rental</code>, <code>bali villa real estate</code>). Парсер выполнит реальный запрос и найдет новые действующие профили Instagram.</p>
+        </div>
+
+        <!-- Search Input Controls -->
+        <div class="live-search-box-panel">
+          <div class="form-group flex-1">
+            <label for="liveSearchQuery">Поисковый Запрос (Ниша + Город / Крипта):</label>
+            <input type="text" id="liveSearchQuery" class="search-input-large" placeholder="Например: dubai watch dealer usdt, miami yacht charter, almaty real estate..." value="dubai watch dealer usdt">
+          </div>
+
+          <div class="form-group width-200">
+            <label for="liveSearchCategory">Категория:</label>
+            <select id="liveSearchCategory" class="select-control full-width">
+              <option value="crypto_jewelry">💎 Ювелирка & Часы (USDT)</option>
+              <option value="crypto_realestate">🏢 Недвижимость за Крипту</option>
+              <option value="crypto_supercars">🏎️ Суперкары за Крипту</option>
+              <option value="yachts">🚤 Аренда Яхт</option>
+              <option value="privatejets">✈️ Частная Авиация</option>
+            </select>
+          </div>
+
+          <div class="form-group width-180">
+            <label for="liveSearchGeo">ГЕО / Регион:</label>
+            <select id="liveSearchGeo" class="select-control full-width">
+              <option value="dubai">🇦🇪 Дубай & ОАЭ</option>
+              <option value="miami">🇺🇸 Майами & США</option>
+              <option value="europe">🇪🇺 Европа</option>
+              <option value="cis">🇰🇿 🇷🇺 СНГ</option>
+              <option value="asia">🇹🇭 Азия (Пхукет, Бали)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Quick Template Preset Tags -->
+        <div class="preset-tags-row margin-top">
+          <span class="preset-label">Быстрые Запросы:</span>
+          <button class="preset-tag" data-query="dubai luxury watches usdt" data-cat="crypto_jewelry" data-geo="dubai">💎 Дубай Часы USDT</button>
+          <button class="preset-tag" data-query="miami exotic car rental" data-cat="crypto_supercars" data-geo="miami">🏎️ Майами Суперкары</button>
+          <button class="preset-tag" data-query="bali villa rental estate" data-cat="crypto_realestate" data-geo="asia">🏝️ Бали Виллы</option>
+          <button class="preset-tag" data-query="dubai yacht charter marina" data-cat="yachts" data-geo="dubai">🚤 Дубай Яхты</button>
+          <button class="preset-tag" data-query="ibiza boat rentals charter" data-cat="yachts" data-geo="europe">🛥️ Ибица Яхты</button>
+        </div>
+
+        <div class="generator-action-row margin-top">
+          <button id="btnStartLiveSearch" class="btn btn-primary pulse">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Запустить Парсинг Новых Аккаунтов
+          </button>
+        </div>
+
+        <!-- Progress and Terminal Output Console -->
+        <div id="liveSearchConsoleArea" class="margin-top hidden">
+          <div class="scraper-status-bar">
+            <div class="progress-info">
+              <span id="liveSearchStatusText">Статус: Поиск аккаунтов...</span>
+              <span id="liveSearchCountBadge">Найдено: 0</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div id="liveSearchProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="terminal-console margin-top">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Live Discovery Crawler Console</span>
+            </div>
+            <div id="liveSearchTerminalLog" class="terminal-body">
+              <div class="log-line text-muted">[Discovery Engine] Нажмите «Запустить Парсинг Новых Аккаунтов»...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Tab 2: Directory View -->
+    <section id="tab-directory" class="tab-content">
+      <div class="filter-card">
+        <div class="search-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Поиск среди найденных аккаунтов...">
+          <button id="btnClearSearch" class="btn-icon hidden">&times;</button>
+        </div>
+
+        <div class="filters-group">
+          <select id="filterFollowers" class="select-control highlight">
+            <option value="ALL">👥 Все категории подписок</option>
+            <option value="10k - 25k">🎯 Бутики & Агенты (10k – 25k)</option>
+            <option value="25k - 50k">⚡ Средние Компании (25k – 50k)</option>
+            <option value="50k - 150k">🏢 Крупные Брокеры (50k – 150k)</option>
+            <option value="150k+">💎 Гиганты & Бренды (150k+)</option>
+          </select>
+
+          <select id="filterCategory" class="select-control">
+            <option value="ALL">🌟 Все Категории</option>
+            <option value="crypto_jewelry">💎 Ювелирка & Часы (Crypto / USDT)</option>
+            <option value="crypto_realestate">🏢 Недвижимость за Крипту</option>
+            <option value="crypto_supercars">🏎️ Суперкары за Крипту (USDT)</option>
+            <option value="yachts">🚤 Аренда Яхт</option>
+          </select>
+
+          <select id="filterGeo" class="select-control">
+            <option value="ALL">🌍 Все ГЕО</option>
+            <option value="dubai">🇦🇪 Дубай & ОАЭ</option>
+            <option value="miami">🇺🇸 Майами & США</option>
+            <option value="europe">🇪🇺 Европа</option>
+          </select>
+
+          <select id="filterStatus" class="select-control">
+            <option value="ALL">Все статусы</option>
+            <option value="Not Contacted">Не обработан</option>
+            <option value="DM Sent">DM Отправлен</option>
+            <option value="Replied">Ответили в DM</option>
+            <option value="Moved to WA">Перешли в WhatsApp</option>
+          </select>
+
+          <div class="view-toggle">
+            <button id="btnViewGrid" class="toggle-btn active" title="Вид карточек">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </button>
+            <button id="btnViewTable" class="toggle-btn" title="Вид таблицы">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-meta">
+        <span>Показано: <strong id="visibleCount">0</strong> профилей</span>
+        <button id="btnResetFilters" class="text-link">Сбросить фильтры</button>
+      </div>
+
+      <div id="gridContainer" class="cards-grid"></div>
+
+      <div id="tableContainer" class="table-wrapper hidden">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Инстаграм Профиль</th>
+              <th>Подписчики / Тип</th>
+              <th>Качество</th>
+              <th>Оплата Криптой</th>
+              <th>Локация</th>
+              <th>DM Отклик</th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab 3: Duplicate Checker -->
+    <section id="tab-dedup" class="tab-content">
+      <div class="dedup-card glass-panel">
+        <div class="panel-header">
+          <h2>Проверка на Дубликаты</h2>
+          <p>Вставьте имеющийся у вас список профилей. Система отфильтрует повторы.</p>
+        </div>
+
+        <div class="dedup-inputs">
+          <div class="form-group">
+            <label for="inputExistingList">Ваш список профилей (URL или никнеймы):</label>
+            <textarea id="inputExistingList" placeholder="https://instagram.com/hausandhaus&#10;@971watchco&#10;..." rows="8"></textarea>
+          </div>
+          <button id="btnCheckDuplicates" class="btn btn-primary">
+            Проверить и Удалить Повторы
+          </button>
+        </div>
+
+        <div id="dedupResultArea" class="dedup-results hidden">
+          <div class="dedup-stats-row">
+            <div class="dedup-stat-pill danger">
+              <span id="dedupMatchCount">0</span> Найдено Дубликатов
+            </div>
+            <div class="dedup-stat-pill success">
+              <span id="dedupUniqueCount">0</span> Уникальных Профилей
+            </div>
+          </div>
+
+          <div class="dedup-lists-grid">
+            <div class="dedup-box">
+              <h3>❌ Обнаруженные Повторы (Исключены):</h3>
+              <ul id="dedupMatchesList" class="matches-list"></ul>
+            </div>
+            <div class="dedup-box">
+              <h3>✅ Очищенный Список:</h3>
+              <textarea id="dedupCleanOutput" readonly rows="8"></textarea>
+              <button id="btnCopyCleanedList" class="btn btn-outline btn-sm margin-top">Скопировать</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: DM to WA Templates -->
+    <section id="tab-outreach" class="tab-content">
+      <div class="glass-panel">
+        <h2>Воронка Сообщений: DM ➔ WhatsApp</h2>
+        <p>Скрипты первого сообщения в DM.</p>
+
+        <div class="templates-grid">
+          <div class="template-card">
+            <div class="template-title">
+              <span class="badge gold">Часовые Дилеры (USDT)</span>
+              <h3>Скрипт для Часовых Бутиков</h3>
+            </div>
+            <textarea id="tpl1" class="template-text" rows="5">Здравствуйте! Увидел ваши модели в профиле. Интересует наличие и инвойс за USDT TRC20. Напишите, пожалуйста, ваш прямой WhatsApp — свяжемся и быстро согласуем детали сделки.</textarea>
+            <button class="btn btn-secondary btn-sm copy-tpl-btn" data-target="tpl1">Скопировать Сообщение</button>
+          </div>
+
+          <div class="template-card">
+            <div class="template-title">
+              <span class="badge cyan">Агенты Недвижимости</span>
+              <h3>Скрипт для Агентов Недвижимости</h3>
+            </div>
+            <textarea id="tpl2" class="template-text" rows="5">Добрый день! Рассматриваю покупку виллы / апартаментов с прямой оплатой в USDT. Подскажите ваш личный WhatsApp номер — напишу туда для получения презентации объектов.</textarea>
+            <button class="btn btn-secondary btn-sm copy-tpl-btn" data-target="tpl2">Скопировать Сообщение</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plain Links Area -->
+    <section id="tab-plain-links" class="tab-content">
+      <div class="glass-panel">
+        <div class="panel-header flex-between">
+          <div>
+            <h2>Чистый Список Всех Instagram Ссылок</h2>
+            <p>Прямой построчный формат ссылок.</p>
+          </div>
+          <button id="btnCopyPlainArea" class="btn btn-primary">
+            Скопировать Все Ссылки
+          </button>
+        </div>
+
+        <textarea id="plainLinksArea" class="plain-links-textarea" readonly rows="18"></textarea>
+      </div>
+    </section>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
