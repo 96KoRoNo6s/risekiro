@@ -3,27 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0f141c">
+<meta name="theme-color" content="#edf4f6">
 <meta name="description" content="RiseKiro — подарки Telegram">
 <link rel="icon" type="image/png" href="logo.png">
 <title>RiseKiro</title>
 <style>
 :root {
-  color-scheme: dark;
-  --bg: #0f141c;
-  --surface: #171f2b;
-  --surface-hover: #1e2938;
-  --surface-muted: #121822;
-  --surface-elevated: #202b3c;
-  --ink: #f1f5f9;
-  --ink-secondary: #94a3b8;
-  --muted: #64748b;
-  --line: #253041;
-  --line-strong: #324156;
-  --accent: #3897f0;
-  --accent-hover: #2481cc;
-  --accent-soft: rgba(56, 151, 240, 0.15);
-  --accent-border: rgba(56, 151, 240, 0.4);
+  color-scheme: light;
+  --bg: #edf4f6;
+  --surface: #ffffff;
+  --surface-hover: #f3f8fa;
+  --surface-muted: #f4f8fa;
+  --surface-elevated: #eaf2f5;
+  --ink: #20333d;
+  --ink-secondary: #5c7380;
+  --muted: #6d828d;
+  --line: #dce7eb;
+  --line-strong: #c8d9e0;
+  --accent: #127e94;
+  --accent-hover: #0b6578;
+  --accent-soft: rgba(18,126,148,.09);
+  --accent-border: rgba(18,126,148,.3);
   --success: #22c55e;
   --warning: #f59e0b;
   --danger: #ef4444;
@@ -52,7 +52,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(23, 31, 43, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
@@ -113,7 +113,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   transition: background-color .15s, border-color .15s;
 }
 .button:hover:not(:disabled) {
-  background: #28364b;
+  background: #e1edf2;
   border-color: #475569;
 }
 .button-primary {
@@ -314,7 +314,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   max-height: 360px;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
-  background: #1a2332;
+  background: #e9f2f5;
   box-shadow: 0 14px 34px rgba(0, 0, 0, .55);
   overflow: hidden;
 }
@@ -322,7 +322,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   flex: 0 0 auto;
   padding: 8px;
   border-bottom: 1px solid var(--line);
-  background: #151d29;
+  background: #f7fafb;
 }
 .collection-search input, .trait-search input {
   width: 100%;
@@ -382,7 +382,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 }
 .collection-option.active, .trait-option.active {
   background: var(--accent-soft);
-  color: #60a5fa;
+  color: #127e94;
 }
 .collection-option img, .collection-fallback {
   width: 32px;
@@ -553,7 +553,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   border: 1px solid var(--accent-border);
   border-radius: 6px;
   background: var(--accent-soft);
-  color: #60a5fa;
+  color: #127e94;
   font-size: 12px;
   font-weight: 500;
 }
@@ -603,7 +603,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   padding: 14px;
 }
 .gift-card:hover .gift-poster:not(.is-fallback) {
-  transform: scale(1.04);
+  transform: none;
 }
 .gift-poster-fallback {
   display: grid;
@@ -728,7 +728,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 .gift-open-btn:hover {
   border-color: var(--accent);
   background: var(--accent-soft);
-  color: #60a5fa;
+  color: #127e94;
 }
 .gift-copy-btn {
   display: grid;
@@ -984,7 +984,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   align-items: center;
   gap: 5px;
   margin-top: 10px;
-  color: #60a5fa;
+  color: #127e94;
   font-size: 13px;
   font-weight: 500;
 }
@@ -1042,6 +1042,26 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
     transition-duration: .01ms !important;
   }
 }
+
+/* Gift artwork and touch layout */
+.mobile-filter-toggle{display:none}.purchase-help{color:var(--ink-secondary);font-size:13px;line-height:1.6;margin:16px 0 6px}
+.gift-symbols{position:absolute;inset:0;pointer-events:none;overflow:hidden}.gift-symbols img{position:absolute;width:15%;height:15%;object-fit:contain;opacity:.18;left:calc(6% + mod(var(--i),3)*32%);top:6%;transform:rotate(-20deg)}
+.gift-symbols img:nth-child(3n+1){left:7%}.gift-symbols img:nth-child(3n+2){left:43%}.gift-symbols img:nth-child(3n){left:79%}.gift-symbols img:nth-child(n+4){top:43%}.gift-symbols img:nth-child(n+7){top:78%}
+.gift-poster,.gift-dialog-poster{position:relative;z-index:1;object-fit:contain}.gift-dialog-media{position:relative;overflow:hidden}.gift-dialog-close{min-width:44px;min-height:44px}.gift-dialog{max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain}.gift-dialog-heading{min-width:0}.gift-dialog-heading h2{overflow-wrap:anywhere}.gift-name,.gift-trait-val{min-width:0}
+@media(min-width:1025px){.workspace{display:block}.sidebar{position:relative;top:0;display:grid;grid-template-columns:minmax(170px,1.2fr) repeat(3,minmax(125px,1fr)) minmax(125px,.9fr) minmax(140px,1fr) minmax(145px,1fr);align-items:end;margin-bottom:20px;gap:12px}.sidebar-head{grid-column:1/-1}.sidebar .collection-picker{grid-column:auto}.catalog{min-width:0}}
+@media(max-width:680px){body{font-size:14px}.workspace{padding:12px 10px 24px}.topbar-inner{gap:8px}.top-actions{gap:6px}.button{min-height:44px}.brand-text strong{font-size:16px}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;margin-bottom:14px}.sidebar-head{display:none}.sidebar .collection-picker,.mobile-filter-toggle{grid-column:1/-1}.mobile-filter-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--surface-elevated);font-weight:600}.mobile-filter-toggle span{font-size:11px;color:var(--ink-secondary);font-weight:400}.sidebar>.filter-field{display:none}.sidebar.mobile-expanded>.filter-field{display:block}.control,.trait-search input,.collection-search input{font-size:16px!important;min-height:44px}.trait-trigger,.collection-trigger{min-height:48px}.trait-popover,.collection-popover{position:fixed;inset:auto 10px 12px;width:auto!important;max-height:75dvh;z-index:60;box-shadow:0 0 0 100vmax rgba(0,0,0,.5)}.trait-list,.collection-list{max-height:55dvh;overscroll-behavior:contain}.trait-option,.collection-option{min-height:48px}.gift-body{padding:10px}.gift-actions{gap:6px}.gift-open-btn,.gift-copy-btn{min-height:44px}.gift-copy-btn{min-width:44px}.gift-trait-row{font-size:11px}.gift-name{font-size:14px}.price-badge{font-size:15px;padding:5px 8px}.gift-dialog{width:calc(100% - 16px);max-width:calc(100% - 16px);max-height:calc(100dvh - 16px);padding:0;border-radius:14px}.gift-dialog-media{aspect-ratio:1.2}.gift-dialog-info{padding:16px}.gift-dialog-actions .button{width:100%}.gift-dialog-topline{gap:10px}.gift-dialog-heading h2{font-size:21px}.gift-dialog-link{display:block;min-height:44px;padding-top:12px}.toast{max-width:calc(100vw - 24px);bottom:calc(12px + env(safe-area-inset-bottom))}.catalog-banner h1{font-size:21px}.gift-grid{gap:9px}}
+@media(max-width:360px){.top-actions .button{padding:0 8px;font-size:12px}.gift-trait-row{font-size:10px}.gift-body{padding:8px}.gift-open-btn{font-size:12px}}
+
+
+/* Clear surfaces let the gifts carry their own colours. */
+:root{--mono:"Bahnschrift","Segoe UI",sans-serif}
+.brand-text strong,.catalog-banner h1,.gift-dialog-heading h2{font-family:"Bahnschrift","Segoe UI",sans-serif;letter-spacing:-.025em}.brand-text strong{font-size:20px}.brand-logo{border-radius:10px}.topbar{border-bottom-color:var(--line)}
+.workspace{padding-top:24px}.sidebar{background:var(--surface);border-color:var(--line);box-shadow:none}.sidebar-head{border-bottom:0;padding-bottom:0}.sidebar-head h2{font-size:15px}.field-label{font-weight:500}.catalog-banner{border:0;border-radius:0;background:transparent;padding:5px 0 18px}.catalog-banner h1{font-size:28px}.catalog-banner p{margin:4px 0 0;color:var(--ink-secondary)}
+.gift-card{border:1px solid var(--line);border-radius:13px;background:var(--surface);box-shadow:0 2px 3px rgba(32,51,61,.025)}.gift-card:hover{border-color:#b2cbd5;box-shadow:0 5px 16px rgba(32,51,61,.07)}.gift-media{border-radius:12px 12px 0 0;border:0;position:relative}.gift-body{padding:13px}.gift-name{font-weight:700;font-size:15px}.gift-traits{border:0;padding-top:2px;margin-top:8px;gap:5px}.gift-trait-row span{color:var(--ink-secondary)}.gift-open-btn{background:var(--surface-muted);border-color:var(--line);color:var(--ink)}.gift-open-btn:hover{background:#e3eff3;border-color:#adc7d2}.gift-copy-btn{background:var(--surface-muted);color:var(--accent);border-color:var(--line)}.price-badge{font-size:16px;border:0;border-radius:7px;padding:5px 9px}.serial-badge{font-family:"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+.gift-card-animation{position:absolute;inset:0;z-index:2;pointer-events:none}.gift-card-animation svg{width:100%!important;height:100%!important}.gift-media.is-animating .gift-poster{opacity:0}.gift-media .price-badge,.gift-media .serial-badge{z-index:3}.gift-dialog{border-color:var(--line);background:var(--surface);box-shadow:0 22px 80px rgba(14,40,52,.25)}.gift-dialog::backdrop{background:rgba(19,39,50,.45);backdrop-filter:blur(5px)}.gift-dialog-section-title{text-transform:none;letter-spacing:0;color:var(--ink-secondary)}.gift-dialog-price{background:var(--surface-muted)}.gift-dialog-animation{z-index:2}.gift-dialog-link{color:var(--accent)}.toast{background:var(--ink);color:white}.button-primary{background:var(--accent);border-color:var(--accent);color:white}.button-primary:hover:not(:disabled){background:var(--accent-hover);border-color:var(--accent-hover)}
+@media(min-width:1025px){.sidebar{gap:10px;padding:16px 18px 18px;margin-bottom:23px}.sidebar-head{grid-column:1/-1}.collection-trigger{background:var(--surface-muted)}}
+@media(max-width:680px){.workspace{padding-top:14px}.sidebar{padding:12px;border-radius:12px}.mobile-filter-toggle{background:var(--surface-muted)}.catalog-banner{padding:2px 2px 14px}.catalog-banner h1{font-size:24px}.gift-body{padding:10px}.gift-name{font-size:14px}.gift-traits{gap:4px}.gift-card:hover{box-shadow:none}.gift-card{border-radius:11px}.gift-dialog-info{background:var(--surface)}}
+
 </style>
 </head>
 <body>
@@ -1062,6 +1082,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 
 <div class="workspace" id="top">
   <aside class="sidebar" aria-label="Фильтры подарков">
+<button id="mobileFilters" class="mobile-filter-toggle" type="button" aria-expanded="false" aria-controls="modelPicker backdropPicker symbolPicker">Фильтры <span>Модель, фон, узор и цена ▾</span></button>
     <div class="sidebar-head">
       <h2>Фильтры</h2>
       <button class="reset-button" id="resetFilters" type="button">Сбросить</button>
@@ -1176,6 +1197,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 
 <dialog class="gift-dialog" id="giftDialog" aria-labelledby="giftDialogName">
   <div class="gift-dialog-media" id="giftDialogMedia">
+    <div id="dialogSymbols" class="gift-symbols" aria-hidden="true"></div>
     <img class="gift-dialog-poster" id="giftDialogPoster" alt="">
     <div class="gift-dialog-animation" id="giftDialogAnimation" aria-hidden="true"></div>
   </div>
@@ -1199,12 +1221,14 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
         <span>Скопировать для покупки</span>
       </button>
     </div>
+    <p class="purchase-help">Нажмите «Скопировать для покупки» и отправьте сообщение в чат продавца на FunPay. Проверю наличие и пришлю персональную ссылку на оплату.</p>
     <a class="gift-dialog-link" id="giftDialogLink" href="#" target="_blank" rel="noopener noreferrer">Открыть в Telegram ↗</a>
   </div>
 </dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
+<script src="catalog-public.js"></script>
 <script>
 (function(){
 "use strict";
@@ -1235,34 +1259,7 @@ function showToast(message){var t=$("toast");t.textContent=message;t.hidden=fals
 function formatRub(value){var n=Number(value);return Number.isFinite(n)?new Intl.NumberFormat("ru-RU",{maximumFractionDigits:0}).format(n)+" ₽":"—";}
 function selectedCollectionImage(){if(!selectedCollection)return"";var row=collections.find(function(x){return x.name===selectedCollection;});return row?safeMediaUrl(row.image):"";}
 
-var isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-var tonRubRate = 99;
-
-async function refreshTonRate(){
-  try{
-    var r = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=usd", { cache: "no-store" });
-    if(r.ok){
-      var d = await r.json();
-      var u = d && d["the-open-network"] && d["the-open-network"].usd;
-      if(u && u > 0){
-        tonRubRate = Math.max(99, u * 84.327);
-      }
-    }
-  }catch(_){}
-}
-refreshTonRate();
-
-function calcFunPayRub(priceTon, rate){
-  var ton = Number(priceTon);
-  if(!Number.isFinite(ton) || ton <= 0) return 0;
-  var r = Number(rate) || tonRubRate || 99;
-  var baseTonRub = ton * r;
-  var starsRub = 50;
-  var cost = baseTonRub + starsRub;
-  var net = cost * 1.075;
-  var adjusted = net * 1.15071;
-  return Math.ceil(adjusted / 5) * 5;
-}
+var isLocal = !["sculpt.run","www.sculpt.run","96korono6s.github.io"].includes(location.hostname);var pendingSearch=false;
 
 var BACKDROP_COLORS = {"satin gold": ["#bf9b47", "#8d7739"], "carmine": ["#e0574a", "#a8383b"], "desert sand": ["#b39f82", "#7e735b"], "neon blue": ["#7596f9", "#6862e4"], "strawberry": ["#dd8e6f", "#b75a60"], "fire engine": ["#f05f4f", "#c43949"], "electric indigo": ["#a980f3", "#5b62d8"], "platinum": ["#b2aea7", "#88847e"], "light olive": ["#c2af64", "#887e45"], "lemongrass": ["#aeb85a", "#559345"], "roman silver": ["#a3a8b5", "#7c808a"], "sky blue": ["#58b4c8", "#538bc2"], "french violet": ["#c260e6", "#914ed9"], "camo green": ["#75944d", "#547341"], "sapphire": ["#58a3c8", "#5379c2"], "lavender": ["#b789e4", "#8a5abc"], "tomato": ["#e6793e", "#d44e3f"], "electric purple": ["#ca70c6", "#9662d4"], "grape": ["#9d74c1", "#794da0"], "dark lilac": ["#b17da5", "#8c577a"], "indigo dye": ["#537991", "#416479"], "cyberpunk": ["#858ff3", "#865fd3"], "burnt sienna": ["#d66f3c", "#b54b2d"], "silver blue": ["#80a4b8", "#607c91"], "pacific green": ["#6fc793", "#3b9c84"], "copper": ["#d08656", "#9d6531"], "onyx black": ["#4d5254", "#313638"], "burgundy": ["#a35e66", "#6d414a"], "rosewood": ["#b77a77", "#814c52"], "tactical pine": ["#44826b", "#2f6369"], "deep cyan": ["#31b5aa", "#189599"], "shamrock green": ["#8ab163", "#559345"], "pistachio": ["#97b07c", "#5c814c"], "emerald": ["#78c585", "#42a171"], "mexican pink": ["#e36692", "#c9497c"], "mystic pearl": ["#d08b6d", "#b05770"], "steel grey": ["#97a2ac", "#63727c"], "celtic blue": ["#45b8ed", "#3886d9"], "old gold": ["#b58d38", "#946925"], "cappuccino": ["#b1907e", "#7c6356"], "gunship green": ["#558a65", "#3d6657"], "cobalt blue": ["#6088cf", "#5162b8"], "pure gold": ["#ccab41", "#987b32"], "midnight blue": ["#5c6985", "#354057"], "english violet": ["#b186bb", "#875a91"], "battleship grey": ["#8c8c85", "#6c6c66"], "pine green": ["#6ba97c", "#3e7970"], "khaki green": ["#adb070", "#6b7d54"], "dark green": ["#516341", "#2b452f"], "moonstone": ["#7eb1b4", "#588390"], "ranger green": ["#5f7849", "#3c4f3b"], "amber": ["#dab345", "#b1802a"], "malachite": ["#95b457", "#3d9755"], "coral red": ["#da896b", "#c4654f"], "mint green": ["#7ecb82", "#459e5a"], "purple": ["#ae6cae", "#844784"], "navy blue": ["#6c9edd", "#5c6ec9"], "gunmetal": ["#4c5d63", "#2f3b42"], "carrot juice": ["#db9867", "#c76f4f"], "persimmon": ["#e7a75a", "#c5675f"], "chocolate": ["#a46e58", "#74443b"], "marine blue": ["#4e689c", "#3b4b7a"], "raspberry": ["#e07b85", "#b65980"], "azure blue": ["#5db1cb", "#448bab"], "seal brown": ["#664d45", "#47362e"], "chestnut": ["#be6f54", "#994838"], "aquamarine": ["#60b195", "#46abb4"], "black": ["#363738", "#0e0f0f"], "mustard": ["#d4980d", "#c47712"], "caramel": ["#d09932", "#b77431"], "orange": ["#d19a3a", "#c06f47"], "ivory white": ["#bab6b1", "#a19d97"], "feldgrau": ["#899288", "#5e6b63"], "jade green": ["#55c49c", "#3b9977"], "french blue": ["#5c9bc4", "#37739a"], "rifle green": ["#64695c", "#4b5241"], "turquoise": ["#5ec0b8", "#3d928e"], "pacific cyan": ["#5abea6", "#3d95ba"], "fandango": ["#e28ab6", "#a4588b"], "hunter green": ["#8fae78", "#4b825b"]};
 
@@ -1428,17 +1425,10 @@ function updateFacetOptions(){
 }
 
 async function fetchAttributes(collectionName){
-  if(!isLocal){
-    if(!collectionAttributes.backdrops||!collectionAttributes.backdrops.length){
-      collectionAttributes.backdrops=STATIC_BACKDROPS;
-    }
-    updateFacetOptions();
-    return;
-  }
   try{
-    var r=await fetch("/api/attributes?collection="+encodeURIComponent(collectionName||""),{cache:"no-store"});
-    if(!r.ok)return;
-    var data=await r.json();
+    var data;
+    if(isLocal){var r=await fetch("/api/attributes?collection="+encodeURIComponent(collectionName||""),{cache:"no-store"});if(!r.ok)return;data=await r.json();}
+    else{data=await CatalogPublic.attributes(collectionName);}
     if((selectedCollection||"")!==(collectionName||""))return;
     collectionAttributes={
       models:Array.isArray(data.models)?data.models:[],
@@ -1450,6 +1440,7 @@ async function fetchAttributes(collectionName){
 }
 
 function setCollection(name){
+  closeFilters();
   selectedCollection=name||"";$("collectionSearch").value="";$("collectionPopover").hidden=true;$("collectionTrigger").setAttribute("aria-expanded","false");
   ["modelFilter","backdropFilter","symbolFilter"].forEach(function(id){$(id).value="";});
   ["modelSearch","backdropSearch","symbolSearch"].forEach(function(id){$(id).value="";});
@@ -1459,6 +1450,7 @@ function setCollection(name){
 }
 
 function setTraitValue(type,value){
+  closeFilters();
   var meta=TRAIT_META[type];
   $(meta.filterId).value=value||"";
   $(meta.searchId).value="";
@@ -1482,12 +1474,14 @@ function mergeLowest(list){
   return Array.from(best.values()).sort(function(a,b){return Number(a.price_rub||Infinity)-Number(b.price_rub||Infinity);});
 }
 
-function itemImage(item){return safeMediaUrl(item.poster_url||item.photo||item.model_image);}
+function itemImage(item){return safeMediaUrl(item.model_image||item.photo||item.poster_url);}
+function symbolsHtml(item){var u=safeMediaUrl(item.symbol_image);if(!u)return "";return Array.from({length:8},function(_,i){return '<img src="'+escapeHtml(u)+'" alt="" loading="lazy" style="--i:'+i+'">';}).join("");}
+function closeFilters(){document.querySelector('.sidebar').classList.remove('mobile-expanded');$('mobileFilters').setAttribute('aria-expanded','false');}
 function giftDisplayCode(item){return item.name||(item.collection||"NFT")+(item.number?"-"+item.number:"");}
 
 async function copyGiftMessage(item){
   if(!item)return;
-  var text="Я хочу купить подарок "+giftDisplayCode(item);
+  var text="Купить "+giftDisplayCode(item);
   try{await navigator.clipboard.writeText(text);showToast("Скопировано: "+text);}catch(_){window.prompt("Скопируйте сообщение:",text);}
 }
 
@@ -1506,8 +1500,9 @@ function renderCard(item,index){
   var poster=image?'<img class="gift-poster" src="'+escapeHtml(image)+'"'+(fallback&&fallback!==image?' data-fallback="'+escapeHtml(fallback)+'"':'')+' alt="'+escapeHtml(code)+'" loading="lazy" referrerpolicy="no-referrer">':'<span class="gift-poster-fallback" aria-hidden="true">NFT</span>';
   return'<article class="gift-card">'
     +'<button class="gift-media" type="button" data-gift-index="'+index+'" aria-label="Открыть '+escapeHtml(code)+'"'+bgStyle+'>'
-    +poster
+    +'<span class="gift-symbols" aria-hidden="true">'+symbolsHtml(item)+'</span>'+poster
     +(serial?'<span class="serial-badge">'+escapeHtml(serial)+'</span>':'')
+    +'<span class="gift-card-animation" aria-hidden="true"></span>'
     +'<span class="price-badge">'+formatRub(item.price_rub)+'</span>'
     +'</button>'
     +'<div class="gift-body">'
@@ -1531,6 +1526,7 @@ function orderedItems(){
 }
 
 function renderItems(){
+  stopCardAnimation();
   var ordered=orderedItems(),visible=ordered.slice(0,visibleLimit);
   $("giftGrid").innerHTML=visible.length?visible.map(renderCard).join(""):'<div class="empty-state"><strong>Подарки не найдены</strong><span>Снимите часть фильтров или выберите другую коллекцию.</span></div>';
   $("giftResultCount").textContent=items.length?items.length+(items.length===1?" предложение":" предложений"):"Нет предложений";
@@ -1546,6 +1542,7 @@ function renderItems(){
 }
 
 function setLoading(){
+  stopCardAnimation();
   $("giftGrid").innerHTML='<div class="loading-state"><span class="spinner" aria-hidden="true"></span>Загружаем предложения…</div>';
   $("giftMoreBtn").hidden=true;$("giftResultCount").textContent="Загружаем…";
 }
@@ -1556,11 +1553,12 @@ function searchUrl(cursors){
   if($("giftNumber").value.trim())p.set("number",$("giftNumber").value.trim());
   p.set("min_rub",$("minPrice").value.trim());p.set("max_rub",$("maxPrice").value.trim());
   p.set("page0",String(cursors[0]==null?0:cursors[0]));p.set("page1",String(cursors[1]==null?1:cursors[1]));p.set("page2",String(cursors[2]==null?"":cursors[2]));
+  if(cursors[0]===null)p.set("skip0","1");if(cursors[1]===null)p.set("skip1","1");if(cursors[2]===null)p.set("skip2","1");
   return"/api/search?"+p.toString();
 }
 
 async function fetchListings(append){
-  if(busy)return;busy=true;$("refreshBtn").disabled=true;$("giftMoreBtn").disabled=true;
+  if(busy){pendingSearch=true;return;}busy=true;$("refreshBtn").disabled=true;$("giftMoreBtn").disabled=true;
   var cursors=append?pageCursors.slice():[0,1,""];
   if(!append){items=[];visibleLimit=PAGE_SIZE;setLoading();}
   try{
@@ -1572,79 +1570,12 @@ async function fetchListings(append){
         renderCollectionButton();renderCollectionOptions();fetchAttributes(selectedCollection);
       }
       items=mergeLowest(append?items.concat(data.items||[]):(data.items||[]));
-    } else {
-      var colObj=null;
-      if(selectedCollection){
-        var scLower=selectedCollection.trim().toLowerCase();
-        colObj=collections.find(function(c){
-          return (c.name&&c.name.toLowerCase()===scLower)||
-                 (c.short_name&&c.short_name.toLowerCase()===scLower)||
-                 (c.name&&c.name.toLowerCase().replace(/\s+/g,"")===scLower.replace(/\s+/g,""));
-        });
-      }
-      var offset=append?(Number(pageCursors[0])||0):0;
-      var params=new URLSearchParams();
-      params.set("limit","48");
-      params.set("offset",String(offset));
-      params.set("sort_by",$("sortBy").value==="desc"?"price desc":"price asc");
-      if(colObj&&colObj.id)params.set("collection_ids",colObj.id);
-      var modelVal=$("modelFilter").value.trim();
-      if(modelVal)params.set("filter_by_models",modelVal);
-      var bdVal=$("backdropFilter").value.trim();
-      if(bdVal)params.set("filter_by_backdrops",bdVal);
-      var symVal=$("symbolFilter").value.trim();
-      if(symVal)params.set("filter_by_symbols",symVal);
-      var numVal=$("giftNumber").value.trim();
-      if(numVal&&/^\d+$/.test(numVal))params.set("external_collection_number",numVal);
-
-      var response=await fetch("https://portal-market.com/api/nfts/search?"+params.toString(),{cache:"no-store"});
-      if(!response.ok)throw new Error("request failed");
-      var data=await response.json();
-      var rawResults=Array.isArray(data.results)?data.results:[];
-      pageCursors=[rawResults.length>=48?offset+rawResults.length:null,null,null];
-
-      var mapped=rawResults.filter(function(r){return r.status==="listed"&&!r.bundle_id;}).map(function(raw){
-        var attrs={};
-        (raw.attributes||[]).forEach(function(a){if(a&&a.type)attrs[a.type.toLowerCase()]=a.value;});
-        var colName=raw.name||selectedCollection||"Gift";
-        var num=raw.external_collection_number;
-        var tgId=raw.tg_id||(colName.replace(/\s+/g,"")+(num!=null?"-"+num:""));
-        var slug=tgId.toLowerCase();
-        var priceTon=parseFloat(raw.price)||0;
-        var priceRub=calcFunPayRub(priceTon,tonRubRate);
-        var bdName=attrs.backdrop||"";
-        var bdPair=BACKDROP_COLORS[bdName.toLowerCase()]||["",""];
-        var poster=raw.photo_url||("https://nft.fragment.com/gift/"+encodeURIComponent(slug)+".webp");
-        var anim=raw.animation_url||("https://nft.fragment.com/gift/"+encodeURIComponent(slug)+".lottie.json");
-        return {
-          collection:colName,
-          name:tgId,
-          number:num!=null?String(num):"",
-          model:attrs.model||"",
-          backdrop:bdName,
-          symbol:attrs.symbol||"",
-          backdrop_center:bdPair[0],
-          backdrop_edge:bdPair[1],
-          price_ton:priceTon,
-          price_rub:priceRub,
-          photo:poster,
-          poster_url:poster,
-          animation_url:anim,
-          gift_url:"https://t.me/nft/"+tgId
-        };
-      });
-
-      var minRub=parseFloat($("minPrice").value.trim());
-      var maxRub=parseFloat($("maxPrice").value.trim());
-      if(Number.isFinite(minRub))mapped=mapped.filter(function(x){return x.price_rub>=minRub;});
-      if(Number.isFinite(maxRub))mapped=mapped.filter(function(x){return x.price_rub<=maxRub;});
-
-      items=mergeLowest(append?items.concat(mapped):mapped);
     }
+    if(!isLocal){var data=await CatalogPublic.search({collection:selectedCollection,model:$("modelFilter").value,backdrop:$("backdropFilter").value,symbol:$("symbolFilter").value,number:$("giftNumber").value,min:$("minPrice").value,max:$("maxPrice").value,sort:$("sortBy").value,offset:cursors[0]||0},collections,BACKDROP_COLORS);pageCursors=data.next;items=mergeLowest(append?items.concat(data.items):data.items);}
     updateFacetOptions();renderItems();
   }catch(_){
     if(!append){$("giftGrid").innerHTML='<div class="empty-state"><strong>Каталог временно недоступен</strong><span>Нажмите «Обновить» или попробуйте через несколько секунд.</span></div>';$("giftResultCount").textContent="Ошибка загрузки";}
-  }finally{busy=false;$("refreshBtn").disabled=false;$("giftMoreBtn").disabled=false;}
+  }finally{busy=false;$("refreshBtn").disabled=false;$("giftMoreBtn").disabled=false;if(pendingSearch){pendingSearch=false;fetchListings(false);}}
 }
 
 async function loadCollections(){
@@ -1653,20 +1584,8 @@ async function loadCollections(){
     if(isLocal){
       var response=await fetch("/api/collections",{cache:"no-store"});if(!response.ok)throw new Error("request failed");
       var data=await response.json();collections=Array.isArray(data.collections)?data.collections:[];
-    } else {
-      var response=await fetch("https://portal-market.com/api/collections?limit=100",{cache:"no-store"});if(!response.ok)throw new Error("request failed");
-      var data=await response.json();
-      collections=(Array.isArray(data.collections)?data.collections:[]).map(function(c){
-        return {
-          id: c.id,
-          name: c.name,
-          short_name: c.short_name,
-          floor_ton: parseFloat(c.floor_price)||null,
-          image: c.photo_url||"",
-          listed_count: c.listed_count
-        };
-      });
     }
+    if(!isLocal)collections=await CatalogPublic.collections();
     renderCollectionButton();renderCollectionOptions();await fetchListings(false);
   }catch(_){
     $("collectionList").innerHTML='<div class="empty-state" style="min-height:100px;padding:12px"><strong>Не удалось загрузить коллекции</strong></div>';
@@ -1705,21 +1624,16 @@ async function playAnimation(url){
   try{
     var ready=await loadLottie();
     if(!ready||stage.dataset.url!==url||!$("giftDialog").open)return;
-    var data=animationCache.get(url);
-    if(!data){
-      var r=await fetch(url,{cache:"force-cache"});
-      if(!r.ok)return;
-      data=await r.json();
-      animationCache.set(url,data);
-    }
+    var data=await animationData(url);
+    if(!data)return;
     if(stage.dataset.url!==url||!$("giftDialog").open)return;
     modalLottie=window.lottie.loadAnimation({
       container:stage,
       renderer:"svg",
       loop:true,
       autoplay:true,
-      animationData:data,
-      rendererSettings:{preserveAspectRatio:"xMidYMid slice"}
+      animationData:structuredClone(data),
+      rendererSettings:{preserveAspectRatio:"xMidYMid meet"}
     });
     modalLottie.addEventListener("DOMLoaded",function(){
       if(stage.dataset.url===url&&$("giftDialog").open&&poster){
@@ -1730,10 +1644,11 @@ async function playAnimation(url){
 }
 
 function openGift(index){
+  stopCardAnimation();
   var item=orderedItems()[index];if(!item)return;activeDialogItem=item;
   var name=giftDisplayCode(item);
   $("giftDialogName").textContent=name;$("giftDialogCollection").textContent=item.collection||"";$("giftDialogPrice").textContent=formatRub(item.price_rub);
-  var media=$("giftDialogMedia");
+  var media=$("giftDialogMedia");$("dialogSymbols").innerHTML=symbolsHtml(item);
   media.style.background=(item.backdrop_center&&item.backdrop_edge)?"radial-gradient(circle,"+item.backdrop_center+","+item.backdrop_edge+")":"#121822";
   var image=itemImage(item),poster=$("giftDialogPoster");
   poster.classList.remove("hidden");
@@ -1753,6 +1668,38 @@ function openGift(index){
   $("giftDialog").showModal();
   playAnimation(safeMediaUrl(item.animation_url));
 }
+
+$("mobileFilters").addEventListener("click",function(){var expanded=document.querySelector('.sidebar').classList.toggle('mobile-expanded');this.setAttribute('aria-expanded',String(expanded));});
+
+var hoverLottie=null,hoverMedia=null,hoverTimer=0,hoverGeneration=0,pendingAnimations=new Map();
+async function animationData(url){
+  if(animationCache.has(url))return animationCache.get(url);
+  if(pendingAnimations.has(url))return pendingAnimations.get(url);
+  var task=(async function(){try{var r=await fetch(url,{cache:"force-cache"});if(!r.ok)return null;var data=await r.json();if(animationCache.size>=12)animationCache.delete(animationCache.keys().next().value);animationCache.set(url,data);return data;}catch(_){return null;}finally{pendingAnimations.delete(url);}})();
+  pendingAnimations.set(url,task);return task;
+}
+function stopCardAnimation(){
+  clearTimeout(hoverTimer);hoverGeneration++;
+  if(hoverLottie){hoverLottie.destroy();hoverLottie=null;}
+  if(hoverMedia){hoverMedia.classList.remove("is-animating");var stage=hoverMedia.querySelector(".gift-card-animation");if(stage)stage.replaceChildren();hoverMedia=null;}
+}
+function startCardAnimation(media,index){
+  if(!matchMedia("(hover:hover) and (pointer:fine)").matches||hoverMedia===media)return;
+  stopCardAnimation();hoverMedia=media;var generation=hoverGeneration;
+  hoverTimer=setTimeout(async function(){
+    var item=orderedItems()[index];if(!item)return;var url=safeMediaUrl(item.animation_url);if(!url)return;
+    if(!await loadLottie())return;
+    var data=await animationData(url);
+    if(!data||generation!==hoverGeneration||!media.isConnected||!media.matches(":hover"))return;
+    var stage=media.querySelector(".gift-card-animation");
+    hoverLottie=window.lottie.loadAnimation({container:stage,renderer:"svg",loop:true,autoplay:true,animationData:structuredClone(data),rendererSettings:{preserveAspectRatio:"xMidYMid meet"}});
+    hoverLottie.addEventListener("DOMLoaded",function(){if(generation===hoverGeneration)media.classList.add("is-animating");});
+  },150);
+}
+$("giftGrid").addEventListener("pointerover",function(event){var media=event.target.closest(".gift-media");if(media)startCardAnimation(media,Number(media.dataset.giftIndex));});
+$("giftGrid").addEventListener("pointerout",function(event){if(hoverMedia&&!hoverMedia.contains(event.relatedTarget))stopCardAnimation();});
+window.addEventListener("blur",stopCardAnimation);
+document.addEventListener("visibilitychange",function(){if(document.hidden)stopCardAnimation();});
 
 $("copyFunpayBtn").addEventListener("click",function(){copyGiftMessage(activeDialogItem);});
 
@@ -1796,6 +1743,7 @@ $("activeChips").addEventListener("click",function(event){
   if(inputBtn){$(inputBtn.dataset.clearInput).value="";renderActiveChips();syncUrlState();fetchListings(false);}
 });
 
+document.addEventListener("keydown",function(event){if(event.key==="Escape"){closeAllTraitPopovers();$("collectionPopover").hidden=true;$("collectionTrigger").setAttribute("aria-expanded","false");}});
 document.addEventListener("click",function(event){
   if(!event.target.closest(".collection-picker")){$("collectionPopover").hidden=true;$("collectionTrigger").setAttribute("aria-expanded","false");}
   if(!event.target.closest(".trait-picker"))closeAllTraitPopovers();
