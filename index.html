@@ -1598,7 +1598,7 @@ function loadLottie(){
   if(lottieLoader)return lottieLoader;
   lottieLoader=new Promise(function(resolve){
     var s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js";
+    s.src="lottie.min.js";
     s.onload=function(){resolve(Boolean(window.lottie));};
     s.onerror=function(){resolve(false);};
     document.head.appendChild(s);

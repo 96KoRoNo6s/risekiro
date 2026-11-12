@@ -54,7 +54,7 @@ async function search(options,collectionRows,backdrops){
     var colors=backdrops[backdrop.toLowerCase()]||["",""];
     return {name:code,number:String(number||""),collection:collection,model:model,backdrop:backdrop,symbol:symbol,
       model_rarity:rarities.model||"",backdrop_rarity:rarities.backdrop||"",symbol_rarity:rarities.symbol||"",
-      price_rub:price(r.price,exchange,cfg),model_image:modelImage(collection,model),animation_url:modelAnimation(collection,model),
+      price_rub:price(r.price,exchange,cfg),model_image:modelImage(collection,model),animation_url:"https://nft.fragment.com/gift/"+code.toLowerCase()+".lottie.json",
       symbol_image:symbolImage(collection,symbol),backdrop_center:colors[0],backdrop_edge:colors[1],gift_url:"https://t.me/nft/"+code};
   }).filter(function(i){return(!options.model||i.model===options.model)&&(!options.backdrop||i.backdrop===options.backdrop)&&(!options.symbol||i.symbol===options.symbol)&&(!options.min||i.price_rub>=Number(options.min))&&(!options.max||i.price_rub<=Number(options.max));});
   return {items:items,next:[raw.length===50?Number(options.offset||0)+50:null,null,null],resolved_collection:col};
