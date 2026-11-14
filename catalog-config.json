@@ -9,7 +9,7 @@
   "ton_usd_rate_snapshot": 1.046,
   "balance_limit_enabled": true,
   "max_purchase_price_ton": 25.0,
-  "budget_updated_at": 1794679544,
+  "budget_updated_at": 1794680008,
   "exchange_fee_percent": 2,
   "transfer_stars": 25,
   "fragment_stars_package_stars": 50,
