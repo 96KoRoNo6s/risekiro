@@ -1,12 +1,12 @@
 {
-  "margin_percent": 7.5,
-  "transfer_stars_rub": 34.99971428571428,
+  "margin_percent": 3,
+  "transfer_stars_rub": 32.660816326530615,
   "checkout_multiplier": 1.15071,
-  "ton_rub_rate_snapshot": 97.22142857142858,
-  "snapshot_updated_at": 1794679436.6558282,
-  "usd_rub_rate": 91,
-  "withdrawal_fee_percent": 3,
-  "ton_usd_rate_snapshot": 1.047,
+  "ton_rub_rate_snapshot": 90.72448979591837,
+  "snapshot_updated_at": 1794679733.6550944,
+  "usd_rub_rate": 85,
+  "withdrawal_fee_percent": 6,
+  "ton_usd_rate_snapshot": 1.046,
   "balance_limit_enabled": true,
   "max_purchase_price_ton": 25.0,
   "budget_updated_at": 1794679544,
@@ -15,5 +15,5 @@
   "fragment_stars_package_stars": 50,
   "fragment_stars_package_ton": 0.72,
   "transfer_stars_ton": 0.36,
-  "pricing_updated_at": 1794679436
+  "pricing_updated_at": 1794679733
 }
