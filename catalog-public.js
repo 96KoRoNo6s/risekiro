@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-var settingsPromise=null,settingsAt=0,rate=0,rateAt=0,rateKey="";
+var settingsPromise=null,settingsAt=0,rate=0,rateAt=0,rateKey="",globalAttributesPromise=null;
 var BASE="https://portal-market.com/api";
 function hex(value){return Array.from(new TextEncoder().encode(value),function(n){return n.toString(16).padStart(2,"0");}).join("");}
 function clean(value){return String(value||"").replace(/\s*\([^)]*%\)\s*$/,"").trim();}
@@ -35,7 +35,12 @@ async function collections(){
   return (data.collections||[]).filter(function(c){return !cfg.balance_limit_enabled||(Number(c.floor_price)>0&&Number(c.floor_price)<=Number(cfg.max_purchase_price_ton));}).map(function(c){return {id:c.id,name:c.name,short_name:c.short_name,image:c.photo_url||"https://nft.fragment.com/gift/"+String(c.short_name||c.name).replace(/[^a-z0-9]/gi,"").toLowerCase()+"-1.webp",floor_price_rub:Number(c.floor_price)>0?price(c.floor_price,exchange,cfg):null};}).sort(function(a,b){return a.name.localeCompare(b.name);});
 }
 async function attributes(collection){
-  if(!collection)return {models:[],symbols:[]};
+  if(!collection){
+    if(!globalAttributesPromise)globalAttributesPromise=json("catalog-attributes.json").catch(function(e){globalAttributesPromise=null;throw e;});
+    var all=await globalAttributesPromise;
+    return {models:(all.models||[]).map(function(m){return{name:m.name,image:modelImage(m.collection,m.name)};}),
+            symbols:(all.symbols||[]).map(function(s){return{name:s.name,image:symbolImage(s.collection,s.name)};})};
+  }
   var rows=await Promise.allSettled([json("https://api.changes.tg/models/"+encodeURIComponent(collection)),json("https://api.changes.tg/symbols/"+encodeURIComponent(collection))]);
   var models=rows[0].status==="fulfilled"&&Array.isArray(rows[0].value)?rows[0].value:[];
   var symbols=rows[1].status==="fulfilled"&&Array.isArray(rows[1].value)?rows[1].value:[];
@@ -69,6 +74,6 @@ async function search(options,collectionRows,backdrops){
   }).filter(function(i){return(!options.model||i.model===options.model)&&(!options.backdrop||i.backdrop===options.backdrop)&&(!options.symbol||i.symbol===options.symbol)&&(!options.min||i.price_rub>=Number(options.min))&&(!options.max||i.price_rub<=Number(options.max));});
   return {items:items,next:[raw.length===50?Number(options.offset||0)+50:null,null,null],resolved_collection:col};
 }
-function refresh(){settingsPromise=null;settingsAt=0;rate=0;rateAt=0;rateKey="";return settings();}
+function refresh(){settingsPromise=null;settingsAt=0;rate=0;rateAt=0;rateKey="";globalAttributesPromise=null;return settings();}
 window.CatalogPublic={collections:collections,attributes:attributes,search:search,refresh:refresh};
 })();

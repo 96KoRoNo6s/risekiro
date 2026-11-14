@@ -1230,7 +1230,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-<script src="catalog-public.js?v=20261114-4"></script>
+<script src="catalog-public.js?v=20261114-5"></script>
 <script>
 (function(){
 "use strict";
@@ -1238,6 +1238,7 @@ var $=function(id){return document.getElementById(id);};
 var collections=[],selectedCollection="",items=[],pageCursors=[0,1,""],visibleLimit=20,busy=false,PAGE_SIZE=20,autoOpenGift="";
 var collectionAttributes={models:[],backdrops:[],symbols:[]};
 var facetOptions={model:[],backdrop:[],symbol:[]};
+var traitLimits={model:100,backdrop:100,symbol:100};
 var activeDialogItem=null,lottieLoader=null,modalLottie=null,animationCache=new Map(),toastTimer=0;
 
 var SVG_ICONS={
@@ -1351,13 +1352,14 @@ function renderTraitButton(type){
 
 function renderTraitList(type){
   var meta=TRAIT_META[type],query=$(meta.searchId).value.trim().toLocaleLowerCase("ru-RU"),current=$(meta.filterId).value;
-  var visible=facetOptions[type].filter(function(x){return!query||x.name.toLocaleLowerCase("ru-RU").includes(query);});
+  var matched=facetOptions[type].filter(function(x){return!query||x.name.toLocaleLowerCase("ru-RU").includes(query);}),visible=matched.slice(0,traitLimits[type]);
   var allRow='<button class="trait-option'+(!current?" active":"")+'" type="button" role="option" aria-selected="'+(!current)+'" data-trait-type="'+type+'" data-trait-value=""><span class="trait-option-media"><span class="trait-fallback" aria-hidden="true">'+meta.icon+'</span></span><strong>'+meta.allLabel+'</strong></button>';
   var rows=visible.map(function(x){
     var active=current===x.name;
     return'<button class="trait-option'+(active?" active":"")+'" type="button" role="option" aria-selected="'+active+'" data-trait-type="'+type+'" data-trait-value="'+escapeHtml(x.name)+'"><span class="trait-option-media">'+traitMediaHtml(type,x)+'</span><strong>'+escapeHtml(x.name)+'</strong></button>';
   }).join("");
-  $(meta.listId).innerHTML=(!query?allRow:"")+(rows||'<div class="empty-state" style="min-height:90px;padding:12px"><strong>Ничего не найдено</strong></div>');
+  var more=matched.length>visible.length?'<button type="button" class="button" data-trait-more="'+type+'" style="width:100%;margin-top:8px">Показать ещё</button>':"";
+  $(meta.listId).innerHTML=(!query?allRow:"")+(rows||'<div class="empty-state" style="min-height:90px;padding:12px"><strong>Ничего не найдено</strong></div>')+more;
 }
 
 function renderActiveChips(){
@@ -1391,7 +1393,7 @@ function updateFacetOptions(){
   (collectionAttributes.models||[]).forEach(function(m){
     if(m&&m.name)modelsMap.set(m.name.toLocaleLowerCase("ru-RU"),{name:m.name,image:m.image||"",fallbackImage:""});
   });
-  (collectionAttributes.backdrops||STATIC_BACKDROPS).forEach(function(b){
+  (collectionAttributes.backdrops&&collectionAttributes.backdrops.length?collectionAttributes.backdrops:STATIC_BACKDROPS).forEach(function(b){
     if(b&&b.name)backdropsMap.set(b.name.toLocaleLowerCase("ru-RU"),{name:b.name,center:b.center||"",edge:b.edge||""});
   });
   (collectionAttributes.symbols||[]).forEach(function(s){
@@ -1444,7 +1446,7 @@ async function fetchAttributes(collectionName){
 function setCollection(name){
   closeFilters();
   selectedCollection=name||"";$("collectionSearch").value="";$("collectionPopover").hidden=true;$("collectionTrigger").setAttribute("aria-expanded","false");
-  ["modelFilter","backdropFilter","symbolFilter"].forEach(function(id){$(id).value="";});
+  // Collection and traits are independent filters, including all collections.
   ["modelSearch","backdropSearch","symbolSearch"].forEach(function(id){$(id).value="";});
   collectionAttributes={models:[],backdrops:collectionAttributes.backdrops||STATIC_BACKDROPS,symbols:[]};
   renderCollectionButton();renderCollectionOptions();updateFacetOptions();syncUrlState();
@@ -1743,6 +1745,10 @@ document.addEventListener("error",function(event){
     var fallback=document.createElement("span");fallback.className="collection-fallback";fallback.setAttribute("aria-hidden","true");fallback.innerHTML=SVG_ICONS.collection;img.replaceWith(fallback);
   }else if(img&&img.id==="giftCollectionImage"){
     img.hidden=true;
+  }else if(img&&img.tagName==="IMG"&&img.closest('.trait-option-media')){
+    var option=img.closest('[data-trait-type]'),type=option&&option.dataset.traitType;
+    var placeholder=document.createElement('span');placeholder.className='trait-fallback';placeholder.setAttribute('aria-hidden','true');
+    placeholder.innerHTML=(TRAIT_META[type]||TRAIT_META.model).icon;img.replaceWith(placeholder);
   }
 },true);
 
@@ -1764,8 +1770,10 @@ $("collectionList").addEventListener("click",function(event){var option=event.ta
     $(meta.pickerId).classList.toggle("open",open);
     if(open){renderTraitList(type);$(meta.listId).scrollTop=0;$(meta.searchId).focus();}
   });
-  $(meta.searchId).addEventListener("input",function(){renderTraitList(type);});
+  $(meta.searchId).addEventListener("input",function(){traitLimits[type]=100;renderTraitList(type);});
   $(meta.listId).addEventListener("click",function(event){
+    var more=event.target.closest('[data-trait-more]');
+    if(more){var scroll=$(meta.listId).scrollTop;traitLimits[type]+=100;renderTraitList(type);$(meta.listId).scrollTop=scroll;return;}
     var btn=event.target.closest("[data-trait-type]");
     if(btn)setTraitValue(btn.dataset.traitType,btn.dataset.traitValue);
   });
@@ -1809,7 +1817,7 @@ $("giftDialog").addEventListener("close",function(){clearAnimation();$("giftDial
 
 readUrlState();
 renderCollectionButton();
-["model","backdrop","symbol"].forEach(renderTraitButton);
+updateFacetOptions();
 loadCollections();
 })();
 </script>
