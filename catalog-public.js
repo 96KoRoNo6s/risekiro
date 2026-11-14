@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-var settingsPromise=null,rate=0,rateAt=0;
+var settingsPromise=null,settingsAt=0,rate=0,rateAt=0;
 var BASE="https://portal-market.com/api";
 function hex(value){return Array.from(new TextEncoder().encode(value),function(n){return n.toString(16).padStart(2,"0");}).join("");}
 function clean(value){return String(value||"").replace(/\s*\([^)]*%\)\s*$/,"").trim();}
@@ -9,23 +9,26 @@ function modelAnimation(collection,model){return model?"https://cdn.tgmrkt.io/gi
 function symbolImage(collection,symbol){return symbol?"https://api.changes.tg/symbol/"+encodeURIComponent(collection)+"/"+encodeURIComponent(symbol)+".png?size=128":"";}
 async function json(url){var response=await fetch(url,{cache:"no-store"});if(!response.ok)throw new Error("Catalog request failed");return response.json();}
 async function settings(){
-  if(!settingsPromise)settingsPromise=json("catalog-config.json");
+  if(!settingsPromise||Date.now()-settingsAt>60000){settingsAt=Date.now();settingsPromise=json("catalog-config.json").catch(function(e){settingsPromise=null;throw e;});}
   return settingsPromise;
 }
 async function rubRate(){
   if(rate>0&&Date.now()-rateAt<300000)return rate;
   var cfg=await settings();
-  try{var data=await json("https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=rub");var value=Number(data["the-open-network"].rub);if(value>0&&Number.isFinite(value)){rate=value;rateAt=Date.now();return rate;}}catch(_){}
+  try{var data=await json("https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=usd");var value=Number(data["the-open-network"].usd)*Number(cfg.usd_rub_rate);if(value>0&&Number.isFinite(value)){rate=value;rateAt=Date.now();return rate;}}catch(_){}
   if(Number(cfg.ton_rub_rate_snapshot)>0){rate=Number(cfg.ton_rub_rate_snapshot);rateAt=Date.now();return rate;}
   throw new Error("Currency rate unavailable");
 }
 function price(ton,exchange,cfg){
   var cost=Number(ton)*exchange+Number(cfg.transfer_stars_rub||0);
-  return Math.ceil((cost*(1+Number(cfg.margin_percent)/100)*Number(cfg.checkout_multiplier))/5-1e-9)*5;
+  var withdrawal=Number(cfg.withdrawal_fee_percent)/100;
+  if(!(withdrawal>=0&&withdrawal<1))throw new Error("Invalid pricing settings");
+  var net=Math.ceil((cost*(1+Number(cfg.margin_percent)/100)/(1-withdrawal))*100-1e-9)/100;
+  return Math.ceil((net*Number(cfg.checkout_multiplier))/5-1e-9)*5;
 }
 async function collections(){
   var data=await json(BASE+"/collections?limit=500"),cfg=await settings(),exchange=await rubRate();
-  return (data.collections||[]).map(function(c){return {id:c.id,name:c.name,short_name:c.short_name,image:"",floor_price_rub:Number(c.floor_price)>0?price(c.floor_price,exchange,cfg):null};}).sort(function(a,b){return a.name.localeCompare(b.name);});
+  return (data.collections||[]).filter(function(c){return !cfg.balance_limit_enabled||(Number(c.floor_price)>0&&Number(c.floor_price)<=Number(cfg.max_purchase_price_ton));}).map(function(c){return {id:c.id,name:c.name,short_name:c.short_name,image:c.photo_url||"https://nft.fragment.com/gift/"+String(c.short_name||c.name).replace(/[^a-z0-9]/gi,"").toLowerCase()+"-1.webp",floor_price_rub:Number(c.floor_price)>0?price(c.floor_price,exchange,cfg):null};}).sort(function(a,b){return a.name.localeCompare(b.name);});
 }
 async function attributes(collection){
   if(!collection)return {models:[],symbols:[]};
@@ -44,9 +47,12 @@ async function search(options,collectionRows,backdrops){
   if(options.backdrop)p.set("filter_by_backdrops",options.backdrop);
   if(options.symbol)p.set("filter_by_symbols",options.symbol);
   if(/^#?\d+$/.test(number))p.set("external_collection_number",number.replace("#",""));
-  var cfg=await settings(),exchange=await rubRate(),data=await json(BASE+"/nfts/search?"+p);
+  var cfg=await settings(),exchange=await rubRate();
+  if(cfg.balance_limit_enabled)p.set("max_price",String(cfg.max_purchase_price_ton));
+  var data=await json(BASE+"/nfts/search?"+p);
+  if(cfg.balance_limit_enabled&&Date.now()/1000-Number(cfg.budget_updated_at||0)>1200)throw new Error("Обновляем предложения. Попробуйте немного позже.");
   var raw=Array.isArray(data.results)?data.results:[];
-  var items=raw.filter(function(r){return r.status==="listed"&&!r.bundle_id&&Number(r.price)>0;}).map(function(r){
+  var items=raw.filter(function(r){return r.status==="listed"&&!r.bundle_id&&Number(r.price)>0&&(!cfg.balance_limit_enabled||Number(r.price)<=Number(cfg.max_purchase_price_ton));}).map(function(r){
     var attrs={},rarities={};(r.attributes||[]).forEach(function(a){attrs[a.type]=clean(a.value);if(a.rarity_per_mille!=null)rarities[a.type]=String(Number(a.rarity_per_mille)/10);});
     var collection=r.name||col,model=attrs.model||"",symbol=attrs.symbol||"",backdrop=attrs.backdrop||"";
     var number=r.external_collection_number||String(r.tg_id||"").split("-").pop();
