@@ -24,7 +24,9 @@ async function rubRate(){
 function price(ton,exchange,cfg){
   var starsTon=Number(cfg.fragment_stars_package_ton)*Number(cfg.transfer_stars)/Number(cfg.fragment_stars_package_stars);
   if(!(starsTon>0&&Number.isFinite(starsTon)))throw new Error("Invalid transfer price");
-  var cost=(Number(ton)+starsTon)*exchange;
+  var marketFee=Number(cfg.market_withdrawal_fee_ton||0);
+  if(!(marketFee>=0&&Number.isFinite(marketFee)))throw new Error("Invalid delivery fee");
+  var cost=(Number(ton)+starsTon+marketFee)*exchange;
   var withdrawal=Number(cfg.withdrawal_fee_percent)/100;
   if(!(withdrawal>=0&&withdrawal<1))throw new Error("Invalid pricing settings");
   var net=Math.ceil((cost*(1+Number(cfg.margin_percent)/100)/(1-withdrawal))*100-1e-9)/100;
