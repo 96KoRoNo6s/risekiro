@@ -1230,7 +1230,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-<script src="catalog-public.js?v=20261114-3"></script>
+<script src="catalog-public.js?v=20261114-4"></script>
 <script>
 (function(){
 "use strict";
@@ -1795,7 +1795,7 @@ $("resetFilters").addEventListener("click",function(){
   syncUrlState();
   fetchListings(false);
 });
-$("refreshBtn").addEventListener("click",loadCollections);
+$("refreshBtn").addEventListener("click",async function(){if(!isLocal)await window.CatalogPublic.refresh().catch(function(){});loadCollections();});
 $("giftMoreBtn").addEventListener("click",function(){if(visibleLimit<items.length){visibleLimit+=PAGE_SIZE;renderItems();}else{fetchListings(true);}});
 $("giftGrid").addEventListener("click",function(event){
   var copyBtn=event.target.closest("[data-copy-index]");

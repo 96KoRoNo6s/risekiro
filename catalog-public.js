@@ -14,7 +14,7 @@ async function settings(){
 }
 async function rubRate(){
   var cfg=await settings();
-  var key=JSON.stringify([cfg.usd_rub_rate,cfg.exchange_fee_percent]),exchangeFee=Number(cfg.exchange_fee_percent)/100;
+  var key=JSON.stringify([cfg.usd_rub_rate,cfg.exchange_fee_percent,cfg.pricing_updated_at]),exchangeFee=Number(cfg.exchange_fee_percent)/100;
   if(!(exchangeFee>=0&&exchangeFee<1))throw new Error("Invalid exchange fee");
   if(rate>0&&Date.now()-rateAt<300000&&rateKey===key)return rate;
   try{var data=await json("https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=usd");var value=Number(data["the-open-network"].usd)*Number(cfg.usd_rub_rate)/(1-exchangeFee);if(value>0&&Number.isFinite(value)){rate=value;rateKey=key;rateAt=Date.now();return rate;}}catch(_){}
@@ -69,5 +69,6 @@ async function search(options,collectionRows,backdrops){
   }).filter(function(i){return(!options.model||i.model===options.model)&&(!options.backdrop||i.backdrop===options.backdrop)&&(!options.symbol||i.symbol===options.symbol)&&(!options.min||i.price_rub>=Number(options.min))&&(!options.max||i.price_rub<=Number(options.max));});
   return {items:items,next:[raw.length===50?Number(options.offset||0)+50:null,null,null],resolved_collection:col};
 }
-window.CatalogPublic={collections:collections,attributes:attributes,search:search};
+function refresh(){settingsPromise=null;settingsAt=0;rate=0;rateAt=0;rateKey="";return settings();}
+window.CatalogPublic={collections:collections,attributes:attributes,search:search,refresh:refresh};
 })();
