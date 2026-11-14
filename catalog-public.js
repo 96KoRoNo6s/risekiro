@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-var settingsPromise=null,settingsAt=0,rate=0,rateAt=0;
+var settingsPromise=null,settingsAt=0,rate=0,rateAt=0,rateKey="";
 var BASE="https://portal-market.com/api";
 function hex(value){return Array.from(new TextEncoder().encode(value),function(n){return n.toString(16).padStart(2,"0");}).join("");}
 function clean(value){return String(value||"").replace(/\s*\([^)]*%\)\s*$/,"").trim();}
@@ -13,14 +13,18 @@ async function settings(){
   return settingsPromise;
 }
 async function rubRate(){
-  if(rate>0&&Date.now()-rateAt<300000)return rate;
   var cfg=await settings();
-  try{var data=await json("https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=usd");var value=Number(data["the-open-network"].usd)*Number(cfg.usd_rub_rate);if(value>0&&Number.isFinite(value)){rate=value;rateAt=Date.now();return rate;}}catch(_){}
-  if(Number(cfg.ton_rub_rate_snapshot)>0){rate=Number(cfg.ton_rub_rate_snapshot);rateAt=Date.now();return rate;}
+  var key=JSON.stringify([cfg.usd_rub_rate,cfg.exchange_fee_percent]),exchangeFee=Number(cfg.exchange_fee_percent)/100;
+  if(!(exchangeFee>=0&&exchangeFee<1))throw new Error("Invalid exchange fee");
+  if(rate>0&&Date.now()-rateAt<300000&&rateKey===key)return rate;
+  try{var data=await json("https://api.coingecko.com/api/v3/simple/price?ids=the-open-network&vs_currencies=usd");var value=Number(data["the-open-network"].usd)*Number(cfg.usd_rub_rate)/(1-exchangeFee);if(value>0&&Number.isFinite(value)){rate=value;rateKey=key;rateAt=Date.now();return rate;}}catch(_){}
+  if(Number(cfg.ton_rub_rate_snapshot)>0){rate=Number(cfg.ton_rub_rate_snapshot);rateKey=key;rateAt=Date.now();return rate;}
   throw new Error("Currency rate unavailable");
 }
 function price(ton,exchange,cfg){
-  var cost=Number(ton)*exchange+Number(cfg.transfer_stars_rub||0);
+  var starsTon=Number(cfg.fragment_stars_package_ton)*Number(cfg.transfer_stars)/Number(cfg.fragment_stars_package_stars);
+  if(!(starsTon>0&&Number.isFinite(starsTon)))throw new Error("Invalid transfer price");
+  var cost=(Number(ton)+starsTon)*exchange;
   var withdrawal=Number(cfg.withdrawal_fee_percent)/100;
   if(!(withdrawal>=0&&withdrawal<1))throw new Error("Invalid pricing settings");
   var net=Math.ceil((cost*(1+Number(cfg.margin_percent)/100)/(1-withdrawal))*100-1e-9)/100;
